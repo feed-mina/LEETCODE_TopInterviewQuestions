@@ -9,37 +9,33 @@ class TreeNode:
 
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        
         print("시작")
-        stack = [(root, 0)]
-        max_depth = 0
-
+        if not root:
+            return True
+        
+        # 처음에 스택에 넣을때부터 3개를 넣어야함 (노드, 최소값, 최대값)
+        # (현재 노드, 최소 값, 최대 값)
+        stack = [(root, float('-inf'), float('inf'))]
         while stack:
-            node, d = stack.pop()
-            print("pop:", node.val, "d:", d)
-
-            if d > max_depth:
-                max_depth = d
-                print("update max_depth:", max_depth)
+            node, low, high = stack.pop()
+            print("pop:", node.val, "low:", low, "high:", high)
+            # 현재 노드 값이 범위를 지키고 있는지 확인필요
+            if not (low < node.val < high):
+                return False
+        
+        # 왼쪽 자식은 현재 부모의 값(node.val) 보다 작아야 하므로 high를 (부모 값)node.val로 설정
+        # 오른쪽 자식은 현재 부모의 값(node.val) 보다 커야 하므로 low를 (부모 값)node.val로 설정
 
             if node.left:
-                print(" push left:", node.left.val, "new_d:", d + 1)
-                stack.append((node.left, d + 1))
-                print("node.val: ", node.val)
-                if node.left.val > node.val:
-                    return False
-
+                stack.append((node.left, low, node.val))
+                print(" push left:", node.left.val, "new_low:", low, "new_high:", node.val)
             if node.right:
-                print(" push right:", node.right.val, "new_d:", d + 1)
-                stack.append((node.right, d + 1))
-                print("node.val: ", node.val)
-                if node.right.val < node.val:
-                    return False
-            return True
+                stack.append((node.right, node.val, high))
+                print(" push right:", node.right.val, "new_low:", node.val, "new_high:", high)
+
+        return True
 
 
-
-        
 if __name__ == "__main__":
     root = TreeNode(
         2,
