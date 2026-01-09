@@ -2,26 +2,31 @@ from typing import List
 
 class Solution:
     def maxProfit(self, prices : List[int]) -> int:   
+        if not prices:
+            return 0
+        # 그리디 알고리즘(Greedy Algorithm)
+        # 매 순간순간 가장 최선의 선택(최저가 갱신과 최대 이익 계산)을 하며 나가는 방식 -> 한번의 스캔만으로 정답을 찾을 수 있다. (동전 거스름돈을 줄때 가장 큰 단위의 동전부터 랑 비슷)
         answer = 0
-        for i in range(0, len(prices)):
-            # 기준점 : prices[i]
-            price = prices[i]
+        min_price = prices[0]
+        print("min_price", min_price)
+        for price in prices:
+            print("for문 시작======")
+            print("min_price", min_price)
             print("price", price)
-
-            for j in range( i + 1, len(prices)):
-                # 비교대상 : prices[j]
-                # print("이익이 가장 클때", prices[j] - prices[i])
-                maxProfitprice = prices[j] - prices[i]
-                if maxProfitprice > answer:
-                    answer = maxProfitprice
-                # 최소값이 최대값보다 이전에 있는 경우가 없을때 return 0 => maxProfitprice 값 중 양수 값이 하나라도 있다면 0이 안된다. maxProfitprice 중에서 가장 큰 값을 return maxProfitprice 한다.
-
+            if price < min_price:
+                min_price = price
+                print("min_price", min_price)
+            elif  price - min_price> answer:
+                answer = price - min_price
+                print("answer", answer)
+        print("min_price", min_price)
+        print("answer", answer)
         return answer
-        # Time Complexity: O(n^2) Submission Result: Time Limit Exceeded 이 문제가 발생한다.
 
 
         
 if __name__ == "__main__":
     sol = Solution()
-    result = sol.maxProfit([7,1,5,3,6,4])
+    result = sol.maxProfit([7,5,1,3,6,4])
     print("result", result)
+# https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/
