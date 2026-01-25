@@ -34,7 +34,15 @@ class Solution:
         return is_prime.count(True)
 
                 
-
+"""# while 문 버전
+i = 2
+while i * i < n:
+    if is_prime[i]:
+        # i의 배수를 지우는 로직은 동일함
+        for j in range(i * i, n, i):
+            is_prime[j] = False
+    i += 1  # 다음 숫자로 넘어가기 위해 직접 1을 더해줌
+"""
 
         
 if __name__ == "__main__":
