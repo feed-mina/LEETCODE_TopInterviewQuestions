@@ -13,7 +13,10 @@ class Solution:
                 for i in range(len(listStr)):
                         print("listStr[i]:", listStr[i])
                         print("s.count(listStr[i])", s.count(listStr[i]))
-                        if s.count(listStr[i]) == 1:
+
+                        # rfind 는 reversed find 와 같다 뒤에서부터 검사, 어쩌면 투포인트 느낌
+                        if s.find(listStr[i]) == s.rfind(listStr[i]):
+                        # if s.count(listStr[i]) == 1:
                                 #answer = i Early Stop에 익숙해지자
                                 return i 
                 # 중복값이 없으면 -1
